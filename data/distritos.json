@@ -1,0 +1,8 @@
+[
+  { "id": 1, "nombre": "Buenos Aires", "provincia": "Buenos Aires" },
+  { "id": 2, "nombre": "CABA", "provincia": "Ciudad Autónoma de Buenos Aires" },
+  { "id": 3, "nombre": "Córdoba", "provincia": "Córdoba" },
+  { "id": 4, "nombre": "Santa Fe", "provincia": "Santa Fe" },
+  { "id": 5, "nombre": "Mendoza", "provincia": "Mendoza" },
+  { "id": 6, "nombre": "Tucumán", "provincia": "Tucumán" }
+]

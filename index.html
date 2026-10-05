@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal para Autoridades de Mesa</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <h1>&#127463;&#127462; Portal para Autoridades de Mesa</h1>
+    <nav>
+      <button id="nav-charlas" class="active">Charlas de Orientaci&oacute;n</button>
+      <button id="nav-inscripcion">Inscribirse como Postulante</button>
+      <button id="nav-postulaciones">Postulaciones</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- ===== PAGE: CHARLAS (UC-01 / UC-02) ===== -->
+    <div id="page-charlas" class="page active">
+      <div class="card">
+        <h2>Charlas de Orientaci&oacute;n Disponibles</h2>
+        <p style="color:#5d6d7e; margin-bottom:1rem;">Conozca las pr&oacute;ximas charlas informativas sobre el rol de autoridad de mesa. Haga clic en "Ver en mapa" para localizar la sede.</p>
+        <div id="lista-charlas"></div>
+      </div>
+      <div class="card">
+        <h2>Ubicaci&oacute;n de las Sedes</h2>
+        <p style="color:#5d6d7e;">Mapa interactivo con las sedes de todas las charlas programadas.</p>
+        <div id="mapa-charlas"></div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: INSCRIPCION (UC-03) ===== -->
+    <div id="page-inscripcion" class="page">
+      <div class="card">
+        <h2>Formulario de Inscripci&oacute;n como Postulante</h2>
+        <p style="color:#5d6d7e; margin-bottom:1rem;">Complete todos los campos obligatorios (<span style="color:#e74c3c;">*</span>) para registrar su postulaci&oacute;n como autoridad de mesa.</p>
+
+        <form id="form-inscripcion" novalidate>
+          <h3>Datos Personales</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="campo-distrito">Distrito Electoral <span class="required">*</span></label>
+              <select id="campo-distrito"><option value="">Seleccione un distrito</option></select>
+              <span id="error-distrito" class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label for="campo-dni">DNI <span class="required">*</span></label>
+              <input type="text" id="campo-dni" maxlength="8" placeholder="Ej: 35456789">
+              <span id="error-dni" class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label for="campo-nombre">Nombre <span class="required">*</span></label>
+              <input type="text" id="campo-nombre" maxlength="100" placeholder="Nombre">
+              <span id="error-nombre" class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label for="campo-apellido">Apellido <span class="required">*</span></label>
+              <input type="text" id="campo-apellido" maxlength="100" placeholder="Apellido">
+              <span id="error-apellido" class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label for="campo-fecha-nac">Fecha de Nacimiento <span class="required">*</span></label>
+              <input type="date" id="campo-fecha-nac">
+              <span id="error-fechaNacimiento" class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label for="campo-telefono">Tel&eacute;fono <span class="required">*</span></label>
+              <input type="text" id="campo-telefono" maxlength="15" placeholder="Ej: 1155667788">
+              <span id="error-telefono" class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label for="campo-email">Correo Electr&oacute;nico <span class="required">*</span></label>
+              <input type="email" id="campo-email" maxlength="200" placeholder="ejemplo@correo.com">
+              <span id="error-email" class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label for="campo-direccion">Direcci&oacute;n Actual <span class="required">*</span></label>
+              <input type="text" id="campo-direccion" maxlength="300" placeholder="Calle, Numero, Localidad">
+              <span id="error-direccion" class="error-msg"></span>
+            </div>
+          </div>
+
+          <h3>Antecedentes</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>&iquest;Fue autoridad de mesa previamente? <span class="required">*</span></label>
+              <div class="radio-group">
+                <label><input type="radio" name="fueAutoridad" value="true"> S&iacute;</label>
+                <label><input type="radio" name="fueAutoridad" value="false"> No</label>
+              </div>
+              <span id="error-fueAutoridad" class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label>&iquest;Cumpli&oacute; la capacitaci&oacute;n? <span class="required">*</span></label>
+              <div class="radio-group">
+                <label><input type="radio" name="cumplioCapacitacion" value="true"> S&iacute;</label>
+                <label><input type="radio" name="cumplioCapacitacion" value="false"> No</label>
+              </div>
+              <span id="error-cumplioCapacitacion" class="error-msg"></span>
+            </div>
+            <div class="form-group">
+              <label>&iquest;Es afiliado a alguna agrupaci&oacute;n? <span class="required">*</span></label>
+              <div class="radio-group">
+                <label><input type="radio" name="esAfiliado" value="true"> S&iacute;</label>
+                <label><input type="radio" name="esAfiliado" value="false"> No</label>
+              </div>
+              <span id="error-esAfiliado" class="error-msg"></span>
+            </div>
+            <div class="form-group" id="grupo-partido" style="display:none;">
+              <label for="campo-partido">Nombre del Partido <span class="required">*</span></label>
+              <input type="text" id="campo-partido" maxlength="200" placeholder="Nombre del partido">
+              <span id="error-partido" class="error-msg"></span>
+            </div>
+          </div>
+
+          <h3>Inter&eacute;s en Charlas (opcional)</h3>
+          <div class="form-group full-width">
+            <label>Seleccione las charlas en las que le gustar&iacute;a participar:</label>
+            <div id="charlas-interes" class="charlas-check-list"></div>
+          </div>
+
+          <div style="margin-top:1.5rem; display:flex; gap:1rem;">
+            <button type="submit" class="btn btn-primary">Registrar Postulaci&oacute;n</button>
+            <button type="reset" class="btn btn-secondary">Limpiar Formulario</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: POSTULACIONES (consulta de persistencia) ===== -->
+    <div id="page-postulaciones" class="page">
+      <div class="card">
+        <h2>Postulaciones Registradas</h2>
+        <p style="color:#5d6d7e; margin-bottom:1rem;">Listado de voluntarios inscriptos en este navegador. El estado inicial es Pendiente, como define el modelo de dominio.</p>
+        <div id="lista-postulaciones"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts: capa datos -> logica -> mapa -> presentacion -->
+  <script src="js/dataService.js"></script>
+  <script src="js/validacion.js"></script>
+  <script src="js/mapaService.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    DataService.inicializar()
+      .then(() => UI.inicializar())
+      .catch((error) => {
+        console.error(error);
+        document.getElementById("toast-container").innerHTML =
+          '<div class="toast error">No se pudieron cargar los datos. Ejecute el prototipo con un servidor local (ver README).</div>';
+      });
+  </script>
+</body>
+</html>

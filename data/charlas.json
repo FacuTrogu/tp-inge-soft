@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "nombre": "Charla Introductoria",
+    "tema": "Rol y responsabilidades de la autoridad de mesa",
+    "fecha": "2026-10-15",
+    "horario": "10:00",
+    "sede": { "nombre": "Sede UNGS - Campus", "direccion": "Juan María Gutiérrez 1150, Los Polvorines", "lat": -34.5228, "lng": -58.6997 }
+  },
+  {
+    "id": 2,
+    "nombre": "Charla sobre Normativa Electoral",
+    "tema": "Marco legal y procedimientos del día de la elección",
+    "fecha": "2026-10-22",
+    "horario": "14:00",
+    "sede": { "nombre": "Centro Cultural Munro", "direccion": "Av. Mitre 3500, Munro", "lat": -34.5298, "lng": -58.5247 }
+  },
+  {
+    "id": 3,
+    "nombre": "Charla de Capacitación Práctica",
+    "tema": "Simulacro de apertura y cierre de mesa",
+    "fecha": "2026-10-29",
+    "horario": "16:00",
+    "sede": { "nombre": "Escuela Técnica N°1 San Miguel", "direccion": "Sarmiento 1552, San Miguel", "lat": -34.5432, "lng": -58.7131 }
+  },
+  {
+    "id": 4,
+    "nombre": "Charla de Cierre",
+    "tema": "Resolución de dudas y cierre de convocatoria",
+    "fecha": "2026-11-05",
+    "horario": "10:00",
+    "sede": { "nombre": "Biblioteca Popular de José C. Paz", "direccion": "Hipólito Yrigoyen 3200, José C. Paz", "lat": -34.5152, "lng": -58.7697 }
+  }
+]
