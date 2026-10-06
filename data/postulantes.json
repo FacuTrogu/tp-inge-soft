@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "distrito": "1",
+    "nombre": "Juanito",
+    "apellido": "Perez",
+    "dni": "12345678",
+    "fechaNacimiento": "1998-05-15",
+    "direccion": "Calle Falsa 123",
+    "telefono": "1122334455",
+    "email": "juanito@gmail.com",
+    "fueAutoridad": false,
+    "cumplioCapacitacion": true,
+    "esAfiliado": false,
+    "partido": "",
+    "charlasInteres": [1, 3],
+    "estado": "Pendiente",
+    "fechaInscripcion": "2026-10-05T10:30:00.000Z"
+  },
+  {
+    "id": 2,
+    "distrito": "2",
+    "nombre": "Maria",
+    "apellido": "Gomez",
+    "dni": "87654321",
+    "fechaNacimiento": "1995-10-20",
+    "direccion": "Av. Siempreviva 742",
+    "telefono": "1198765432",
+    "email": "maria.gomez@gmail.com",
+    "fueAutoridad": true,
+    "cumplioCapacitacion": true,
+    "esAfiliado": true,
+    "partido": "Partido Generico",
+    "charlasInteres": [2],
+    "estado": "Aprobado",
+    "fechaInscripcion": "2026-10-06T14:15:00.000Z"
+  }
+]

@@ -1,7 +1,3 @@
-/**
- * mapaService.js
- * Integracion con LeafletJS y el servicio externo de mapas.
- */
 const MapaService = (() => {
   let mapa = null;
   let marcadores = [];
@@ -22,7 +18,8 @@ const MapaService = (() => {
   }
 
   function agregarMarcadorCharla(charla) {
-    if (!mapa || !charla.sede || typeof charla.sede.lat !== "number" || typeof charla.sede.lng !== "number") return null;
+    if (!mapa || !charla.sede || !charla.sede.lat || !charla.sede.lng) return null;
+    
     const marcador = L.marker([charla.sede.lat, charla.sede.lng]).addTo(mapa);
     marcador.bindPopup(
       `<strong>${charla.nombre}</strong><br>` +
@@ -43,7 +40,7 @@ const MapaService = (() => {
   }
 
   function centrarEnCharla(charla) {
-    if (!mapa || !charla?.sede) return;
+    if (!mapa || !charla.sede) return;
     mapa.setView([charla.sede.lat, charla.sede.lng], 15);
     const marcador = marcadores.find((m) => {
       const posicion = m.getLatLng();

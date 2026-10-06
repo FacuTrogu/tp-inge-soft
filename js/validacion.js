@@ -1,9 +1,3 @@
-/**
- * validacion.js
- * Reglas de validacion del formulario de inscripcion.
- * Separa la logica de negocio de la presentacion.
- */
-
 const Validacion = (() => {
   function esEmailValido(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -22,16 +16,13 @@ const Validacion = (() => {
     const nacimiento = new Date(fechaNacimiento);
     let edad = hoy.getFullYear() - nacimiento.getFullYear();
     const diferenciaMes = hoy.getMonth() - nacimiento.getMonth();
+    
     if (diferenciaMes < 0 || (diferenciaMes === 0 && hoy.getDate() < nacimiento.getDate())) {
       edad--;
     }
     return edad >= 18;
   }
 
-  /**
-   * Valida todos los campos del formulario.
-   * Retorna un objeto { valido: boolean, errores: { campo: mensaje } }
-   */
   function validarFormularioPostulante(datos) {
     const errores = {};
 
@@ -67,13 +58,13 @@ const Validacion = (() => {
       errores.email = "El formato de email no es valido.";
     }
 
-    if (datos.fueAutoridad === undefined || datos.fueAutoridad === null) {
+    if (datos.fueAutoridad === null) {
       errores.fueAutoridad = "Debe indicar si fue autoridad previamente.";
     }
-    if (datos.cumplioCapacitacion === undefined || datos.cumplioCapacitacion === null) {
+    if (datos.cumplioCapacitacion === null) {
       errores.cumplioCapacitacion = "Debe indicar si cumplio la capacitacion.";
     }
-    if (datos.esAfiliado === undefined || datos.esAfiliado === null) {
+    if (datos.esAfiliado === null) {
       errores.esAfiliado = "Debe indicar si es afiliado.";
     }
     if (datos.esAfiliado === true && (!datos.partido || datos.partido.trim().length === 0)) {

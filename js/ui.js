@@ -1,9 +1,3 @@
-/**
- * ui.js
- * Capa de presentacion. Maneja el DOM, la navegacion entre vistas
- * y la interaccion con el usuario. Utiliza DataService, Validacion y MapaService.
- */
-
 const UI = (() => {
   let mapaInicializado = false;
 
@@ -15,13 +9,14 @@ const UI = (() => {
     mostrarPagina(localStorage.getItem("portal_pagina_activa") || "charlas");
   }
 
-  /* === Navegacion === */
   function mostrarPagina(nombre) {
     localStorage.setItem("portal_pagina_activa", nombre);
     document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
     document.querySelectorAll(".navbar nav button").forEach((b) => b.classList.remove("active"));
+    
     const pagina = document.getElementById("page-" + nombre);
     if (pagina) pagina.classList.add("active");
+    
     const boton = document.getElementById("nav-" + nombre);
     if (boton) boton.classList.add("active");
 
@@ -32,9 +27,11 @@ const UI = (() => {
         mapaInicializado = true;
       }, 150);
     }
+    
     if (nombre === "charlas" && mapaInicializado) {
       MapaService.refrescar();
     }
+    
     if (nombre === "postulaciones") {
       renderizarPostulaciones();
     }
@@ -46,11 +43,11 @@ const UI = (() => {
     document.getElementById("nav-postulaciones").addEventListener("click", () => mostrarPagina("postulaciones"));
   }
 
-  /* === Charlas === */
   function renderizarCharlas() {
     const charlas = DataService.obtenerCharlas();
     const contenedor = document.getElementById("lista-charlas");
     contenedor.innerHTML = "";
+    
     charlas.forEach((charla) => {
       const fechaFormateada = formatearFecha(charla.fecha);
       const div = document.createElement("div");
@@ -85,14 +82,13 @@ const UI = (() => {
     });
   }
 
-  /* === Formulario de inscripcion === */
   function renderizarFormulario() {
     const selectDistrito = document.getElementById("campo-distrito");
     const distritos = DataService.obtenerDistritos();
     distritos.forEach((d) => {
       const opt = document.createElement("option");
       opt.value = d.id;
-      opt.textContent = d.nombre + " (" + d.provincia + ")";
+      opt.textContent = `${d.nombre} (${d.provincia})`;
       selectDistrito.appendChild(opt);
     });
 
@@ -152,6 +148,7 @@ const UI = (() => {
       if (!seleccionado) return null;
       return seleccionado.value === "true";
     };
+    
     const charlasSeleccionadas = [];
     document.querySelectorAll('input[name="interes_charla"]:checked').forEach((cb) => {
       charlasSeleccionadas.push(parseInt(cb.value, 10));
@@ -174,7 +171,6 @@ const UI = (() => {
     };
   }
 
-  /* === Postulaciones === */
   function renderizarPostulaciones() {
     const contenedor = document.getElementById("lista-postulaciones");
     const postulantes = DataService.obtenerPostulantes();
@@ -222,7 +218,6 @@ const UI = (() => {
     `;
   }
 
-  /* === Errores === */
   function mostrarErrores(errores) {
     for (const [campo, mensaje] of Object.entries(errores)) {
       const errorEl = document.getElementById("error-" + campo);
@@ -239,7 +234,6 @@ const UI = (() => {
     document.querySelectorAll(".error").forEach((el) => el.classList.remove("error"));
   }
 
-  /* === Toast === */
   function mostrarToast(mensaje, tipo) {
     const contenedor = document.getElementById("toast-container");
     const toast = document.createElement("div");
@@ -256,7 +250,7 @@ const UI = (() => {
 
   function formatearFechaHora(isoStr) {
     const fecha = new Date(isoStr);
-    if (Number.isNaN(fecha.getTime())) return isoStr;
+    if (!fecha.getTime()) return isoStr;
     const dd = String(fecha.getDate()).padStart(2, "0");
     const mm = String(fecha.getMonth() + 1).padStart(2, "0");
     const yyyy = fecha.getFullYear();
