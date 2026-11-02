@@ -189,10 +189,8 @@ const UI = (() => {
         const nombreDistrito = distrito ? distrito.nombre : p.distrito;
         const fecha = p.fechaInscripcion ? formatearFechaHora(p.fechaInscripcion) : "-";
         return `<tr>
-          <td>${p.dni}</td>
           <td>${p.apellido}, ${p.nombre}</td>
           <td>${nombreDistrito}</td>
-          <td>${p.email}</td>
           <td><span class="badge">${p.estado || "Pendiente"}</span></td>
           <td>${fecha}</td>
         </tr>`;
@@ -204,10 +202,8 @@ const UI = (() => {
         <table class="tabla-postulaciones">
           <thead>
             <tr>
-              <th>DNI</th>
               <th>Apellido y nombre</th>
               <th>Distrito</th>
-              <th>Email</th>
               <th>Estado</th>
               <th>Fecha de inscripcion</th>
             </tr>

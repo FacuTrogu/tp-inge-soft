@@ -27,3 +27,6 @@ Luego, ingresar en el navegador al enlace local que devuelva la terminal (genera
 
 ### Opción 3: Live Server (VS Code)
 Si se utiliza Visual Studio Code o Cursor, hacer clic derecho sobre el archivo `index.html` y seleccionar **Open with Live Server**.
+
+### ACLARACIÓN
+Hicimos algunos cambios en el código para evitar que se vean el dni y email en el apartado "Postulaciones" y para no permitir que el nombre y apellido ingresado en la postulación contenga números. Quizás, los cambios no se reflejen correctamente si quedo cache en la local storage del navegador. Se puede borrar apretando f12 en la pagina del portal, yendo al apartado "Application", luego desplegamos "Local storage" y apretamos click derecho en la url del portal y seleccionamos "Clear". Finalmente, recargamos la pagina con f5 o ctrl + f5. De todas formas, son cambios menores.

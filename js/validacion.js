@@ -1,4 +1,12 @@
 const Validacion = (() => {
+  function esNombreValido(nombre) {
+    return /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(nombre);
+  }
+
+  function esApellidoValido(apellido) {
+    return /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(apellido);
+  }
+
   function esEmailValido(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   }
@@ -27,8 +35,18 @@ const Validacion = (() => {
     const errores = {};
 
     if (!datos.distrito) errores.distrito = "Debe seleccionar un distrito electoral.";
-    if (!datos.nombre || datos.nombre.trim().length === 0) errores.nombre = "El nombre es obligatorio.";
-    if (!datos.apellido || datos.apellido.trim().length === 0) errores.apellido = "El apellido es obligatorio.";
+
+    if (!datos.nombre || datos.nombre.trim().length === 0) {
+      errores.nombre = "El nombre es obligatorio.";
+    } else if (!esNombreValido(datos.nombre)) {
+      errores.nombre = "El nombre solo debe contener letras.";
+    }
+
+    if (!datos.apellido || datos.apellido.trim().length === 0) {
+      errores.apellido = "El apellido es obligatorio.";
+    } else if (!esApellidoValido(datos.apellido)) {
+      errores.apellido = "El apellido solo debe contener letras.";
+    }
 
     if (!datos.dni) {
       errores.dni = "El DNI es obligatorio.";
